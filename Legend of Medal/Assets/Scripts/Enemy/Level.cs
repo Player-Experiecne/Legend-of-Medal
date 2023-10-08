@@ -1,9 +1,25 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Level", menuName = "Level")]
+[CreateAssetMenu(fileName = "New Level", menuName = "Level", order = 51)]
 public class Level : ScriptableObject
 {
-    public string levelName; // 关卡名称
-    public List<Wave> waves; // 每关的所有波次
+    [SerializeField] private string levelName;
+    [SerializeField] private List<Wave> waves;
+
+    public string LevelName => levelName;
+    public List<Wave> Waves => waves;  
+
+    [System.Serializable]
+    public class Wave
+    {
+        [SerializeField] public List<EnemySpawnInfo> enemies;
+    }
+
+    [System.Serializable]
+    public class EnemySpawnInfo
+    {
+        public GameObject enemyPrefab;
+        public int count;
+    }
 }
