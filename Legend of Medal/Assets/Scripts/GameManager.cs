@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnWaves(List<Level.Wave> waves)  // 修正了这里，更改参数类型
+    private IEnumerator SpawnWaves(List<Level.Wave> waves)  
     {
         foreach (var wave in waves)
         {
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         LoadNextLevel();
     }
 
-    private IEnumerator SpawnEnemies(List<Level.EnemySpawnInfo> enemies)  // 修正了这里，更改参数类型
+    private IEnumerator SpawnEnemies(List<Level.EnemySpawnInfo> enemies)  
     {
         foreach (var enemyInfo in enemies)
         {
