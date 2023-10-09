@@ -4,35 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public List<Level> levels; // 所有关卡
-    public Transform[] spawnPoints; 
+    public GameLevels gameLevels;
+    public Transform[] spawnPoints;
+
     private int currentLevelIndex = 0;
-    private int currentWaveIndex = 0;
 
-    private static GameManager instance;
-
-    void Awake()
+    private void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); 
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         LoadNextLevel();
     }
 
-    void LoadNextLevel()
+    private void LoadNextLevel()
     {
-        if (currentLevelIndex < levels.Count)
+        if (currentLevelIndex < gameLevels.Levels.Count)
         {
-            Debug.Log("Loading level: " + levels[currentLevelIndex].levelName);
-            StartCoroutine(StartWaves(levels[currentLevelIndex].waves));
+            Level currentLevel = gameLevels.Levels[currentLevelIndex];
+            Debug.Log("Starting Level: " + currentLevel.LevelName);
+            StartCoroutine(SpawnWaves(currentLevel.Waves));
         }
         else
         {
@@ -40,27 +28,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator StartWaves(List<Wave> waves)
+    private IEnumerator SpawnWaves(List<Level.Wave> waves)  // 修正了这里，更改参数类型
     {
-        for (currentWaveIndex = 0; currentWaveIndex < waves.Count; currentWaveIndex++)
+        foreach (var wave in waves)
         {
-            yield return StartCoroutine(SpawnWave(waves[currentWaveIndex]));
+            yield return StartCoroutine(SpawnEnemies(wave.enemies));
         }
 
         currentLevelIndex++;
         LoadNextLevel();
     }
 
-    IEnumerator SpawnWave(Wave wave)
+    private IEnumerator SpawnEnemies(List<Level.EnemySpawnInfo> enemies)  // 修正了这里，更改参数类型
     {
-        foreach (var enemyInfo in wave.enemySpawnInfos)
+        foreach (var enemyInfo in enemies)
         {
             for (int i = 0; i < enemyInfo.count; i++)
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)]; 
-                Instantiate(enemyInfo.enemyType.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                yield return new WaitForSeconds(1f); 
+                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                Instantiate(enemyInfo.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                yield return new WaitForSeconds(1f);
             }
         }
+
+        yield return new WaitForSeconds(2f);
     }
 }
