@@ -16,15 +16,18 @@ public class EnemyMovement : MonoBehaviour
 
             Vector3 nextPosition = Vector3.MoveTowards(transform.position, targetPositionWithSameY, speed * Time.deltaTime);
             transform.position = nextPosition;
-
-            if (Vector3.Distance(transform.position, targetPositionWithSameY) < 0.5f)
-            {
-                Destroy(gameObject);
-            }
         }
         else
         {
             Debug.LogWarning("No target object set for enemy!");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == targetObject || other.CompareTag("Player"))
+        {
+            Destroy(gameObject);
         }
     }
 }
