@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 0}
+  damagePerHit: 5
   speed: 5
 --- !u!54 &6544431789038417635
 Rigidbody:

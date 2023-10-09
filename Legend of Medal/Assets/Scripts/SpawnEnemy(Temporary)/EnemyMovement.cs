@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public GameObject targetObject;
+    public int damagePerHit = 1;
     public float speed = 5.0f;
 
     private void Update()
@@ -27,6 +28,13 @@ public class EnemyMovement : MonoBehaviour
     {
         if (other.gameObject == targetObject || other.CompareTag("Player"))
         {
+            // If the collided object has the "Base" component, call its TakeDamage function
+            Base baseComponent = other.gameObject.GetComponent<Base>();
+            if (baseComponent != null)
+            {
+                baseComponent.TakeDamage(damagePerHit);
+            }
+
             Destroy(gameObject);
         }
     }
