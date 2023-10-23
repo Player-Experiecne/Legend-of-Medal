@@ -57,4 +57,15 @@ public class FixedMonster : MonoBehaviour
             bullet.Seek(target);
         }
     }
+
+    private void OnEnable()
+    {
+        DefenderManager.Instance.RegisterDefender(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        DefenderManager.Instance.UnregisterDefender(gameObject);
+    }
+
 }

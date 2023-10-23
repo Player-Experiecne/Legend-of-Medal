@@ -1,0 +1,7 @@
+# Ignore the entire Test folder
+/Legend of Medal/Assets/Test/
+
+# Ignore the test.meta
+/Legend of Medal/Assets/Test.meta
+Legend of Medal/Assets/Scripts/Scripts.asmdef
+Legend of Medal/Assets/Scripts/Scripts.asmdef.meta

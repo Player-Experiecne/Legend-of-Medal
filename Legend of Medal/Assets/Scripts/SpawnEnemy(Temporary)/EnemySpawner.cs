@@ -27,6 +27,9 @@ public class EnemySpawner : MonoBehaviour
             {
                 GameObject enemyInstance = Instantiate(enemyPrefab, spawnLocations[i].transform.position, Quaternion.identity);
 
+                // Tag the spawned enemy with "Enemy"
+                enemyInstance.tag = "Enemy";
+
                 // Set the target for the instantiated enemy
                 EnemyMovement enemyMovement = enemyInstance.GetComponent<EnemyMovement>();
                 if (enemyMovement != null)
