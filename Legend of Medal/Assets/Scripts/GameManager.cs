@@ -9,10 +9,28 @@ public class GameManager : MonoBehaviour
 
     private int currentLevelIndex = 0;
 
-    private void Start()
+    private DataService dataService;
+
+
+    void Start()
     {
-        LoadNextLevel();
-    }
+        // 创建 DataService 实例
+        dataService = new DataService("PlayerSaves.db");
+
+        // 创建一个新的玩家存档
+        dataService.CreatePlayerSave("Revolt", 1, 200);
+        //dataService.ClearDB();
+
+        // 获取所有玩家存档
+        IEnumerable<PlayerSave> playerSaves = dataService.GetAllPlayerSaves();
+        foreach (var playerSave in playerSaves)
+        {
+            Debug.Log(playerSave.ToString());
+        }
+
+        
+        }
+    
 
     private void LoadNextLevel()
     {
