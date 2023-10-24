@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 6060180828890287579}
   - component: {fileID: 6060180828890287569}
   - component: {fileID: 5500139518151672771}
+  - component: {fileID: 8093411518937923740}
   m_Layer: 2
   m_Name: EnemyHumanoid
   m_TagString: Untagged
@@ -341,9 +342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertRadius: 10
-  attackPower: 1
+  attackPower: 100
   attackRange: 5
-  attackSpeed: 10
+  attackSpeed: 0.75
 --- !u!135 &6060180828890287569
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -369,8 +370,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764945c0624f042468e3b2bf73686705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 300
   healthBar: {fileID: 4867120666337286154}
+--- !u!114 &8093411518937923740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060180828890287578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bef00b550aac349af791f6e00176d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 202
 --- !u!1 &6402937183202544657
 GameObject:
   m_ObjectHideFlags: 0

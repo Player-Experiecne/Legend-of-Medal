@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public GameLevels gameLevels;
     public Transform[] spawnPoints;
+    public List<Dictionary<string, float>> monsterData;
 
     private int currentLevelIndex = 0;
 
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
         // 创建 DataService 实例
         dataService = new DataService("PlayerSaves.db");
 
-        monsterDB  = new DataService("Monsters.db");
+        monsterDB = new DataService("Monsters.db");
 
 
 
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
         dataService.CreatePlayerSave("Revolt", 1, 200);
 
         monsterDB.ImportMonstersFromCSV(path);
-       //onsterDB.ClearMonsterDB();
+        //onsterDB.ClearMonsterDB();
 
         //dataService.ClearDB();
 
@@ -90,11 +91,16 @@ public class GameManager : MonoBehaviour
            {
                Debug.Log(monster.ToString());
            }*/
-        List<Dictionary<string, string>> monsterData = ConvertCsvToDictList(path);
-        PrintDictList(monsterData);
+        //存原始数据到rawData
+        List<Dictionary<string, string>> rawData = ConvertCsvToDictList(path);
+
+        //把string Dictionary解析成<int, float>
+        monsterData = ConvertData(rawData);
+
+        //PrintDictList(rawData);
 
     }
-    
+
 
     private void LoadNextLevel()
     {
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnWaves(List<Level.Wave> waves)  
+    private IEnumerator SpawnWaves(List<Level.Wave> waves)
     {
         foreach (var wave in waves)
         {
@@ -121,7 +127,7 @@ public class GameManager : MonoBehaviour
         LoadNextLevel();
     }
 
-    private IEnumerator SpawnEnemies(List<Level.EnemySpawnInfo> enemies)  
+    private IEnumerator SpawnEnemies(List<Level.EnemySpawnInfo> enemies)
     {
         foreach (var enemyInfo in enemies)
         {
@@ -134,5 +140,32 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
+    }
+
+    public List<Dictionary<string, float>> ConvertData(List<Dictionary<string, string>> originalData)
+    {
+        List<Dictionary<string, float>> convertedData = new List<Dictionary<string, float>>();
+
+        foreach (var dictionary in originalData)
+        {
+            Dictionary<string, float> newDictionary = new Dictionary<string, float>();
+
+            foreach (var entry in dictionary)
+            {
+                float value;
+
+                // Try to parse the value or set to 0 if failed
+                if (!float.TryParse(entry.Value, out value))
+                {
+                    value = 0f;
+                }
+
+                newDictionary.Add(entry.Key, value);
+            }
+
+            convertedData.Add(newDictionary);
+        }
+
+        return convertedData;
     }
 }

@@ -446,12 +446,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4939996705135754}
-  - component: {fileID: -2765428479128255768}
   - component: {fileID: 6749977619423871753}
   - component: {fileID: 2181291375880003251}
   - component: {fileID: 7646873246669755917}
   - component: {fileID: 5094652887585106074}
   - component: {fileID: -9188955246287309315}
+  - component: {fileID: 4961324720096960992}
   m_Layer: 0
   m_Name: Turret Tower 01
   m_TagString: Defender
@@ -477,22 +477,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2765428479128255768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326093064322132}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5583f99ed6b82ee4d90e57481c74c821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 20
-  fireRate: 1
-  turnSpeed: 10
-  bulletPrefab: {fileID: 7885008406904678189, guid: 3f3a577a3f54f9f47a1c8e0c203afacf, type: 3}
 --- !u!65 &6749977619423871753
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -535,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertRadius: 10
-  attackPower: 1
+  attackPower: 60
   attackRange: 5
   attackSpeed: 10
 --- !u!195 &5094652887585106074
@@ -572,8 +556,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764945c0624f042468e3b2bf73686705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   healthBar: {fileID: 1867868186}
+--- !u!114 &4961324720096960992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326093064322132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bef00b550aac349af791f6e00176d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 201
+  aiType: 1
 --- !u!1 &1414511323558576
 GameObject:
   m_ObjectHideFlags: 0
