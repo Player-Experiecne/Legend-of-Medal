@@ -30,12 +30,6 @@ public class EnemySpawner : MonoBehaviour
                 // Tag the spawned enemy with "Enemy"
                 enemyInstance.tag = "Enemy";
 
-                // Set the target for the instantiated enemy
-                EnemyMovement enemyMovement = enemyInstance.GetComponent<EnemyMovement>();
-                if (enemyMovement != null)
-                {
-                    enemyMovement.targetObject = targetObject;
-                }
             }
             else
             {

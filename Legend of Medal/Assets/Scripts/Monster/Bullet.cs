@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         // 添加击中目标后的逻辑
-        Enemy enemy = target.GetComponent<Enemy>();
+        HP enemy = target.GetComponent<HP>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage); // 让怪物受到伤害
