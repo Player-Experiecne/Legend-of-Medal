@@ -1,80 +1,81 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class DefenderController : MonoBehaviour
 {
     private NavMeshAgent agent;
 
     public float alertRadius = 10f;
 
-    private GameObject Mendelbase;
-    private GameObject targetDefender;
+    private GameObject defendPoint; // The location the defender should defend when not engaging enemies.
+    private GameObject targetEnemy;
 
     public float attackPower = 1f;
     public float attackRange = 5f;
     public float attackSpeed = 1f;
     private bool isAttacking = false;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        //Set first target to base
-        Mendelbase = GameObject.FindGameObjectWithTag("Base");
-        agent.destination = Mendelbase.transform.position;
+
+        // Set the default defend point to the base or some specific location.
+        defendPoint = gameObject;  // You might want to change the tag.
+        agent.destination = defendPoint.transform.position;
     }
 
     void Update()
     {
-        // If the enemy doesn't have a target or if its target was destroyed
-        if (targetDefender == null || !DefenderManager.Instance.defenders.Contains(targetDefender))
+        // If the defender doesn't have a target or if its target was destroyed
+        if (targetEnemy == null || !EnemyManager.Instance.enemies.Contains(targetEnemy))
         {
-            FindClosestDefender();
+            FindClosestEnemy();
         }
 
-        if (targetDefender != null)
+        if (targetEnemy != null)
         {
-            float distanceToDefender = Vector3.Distance(transform.position, targetDefender.transform.position);
+            float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
 
             // Check if within attack range
-            if (distanceToDefender <= attackRange)
+            if (distanceToEnemy <= attackRange)
             {
                 StopMovement();
-                Attack(targetDefender);
+                Attack(targetEnemy);
             }
             // Check if within alert radius but outside attack range
-            else if (distanceToDefender <= alertRadius && distanceToDefender > attackRange)
+            else if (distanceToEnemy <= alertRadius && distanceToEnemy > attackRange)
             {
-                MoveTowardsTarget(targetDefender);
+                MoveTowardsTarget(targetEnemy);
             }
-            // If the defender is outside the alert radius
+            // If the enemy is outside the alert radius
             else
             {
-                targetDefender = null;  // Lose the target if it's outside the alert range
-                MoveTowardsTarget(Mendelbase);
+                targetEnemy = null;  // Lose the target if it's outside the alert range
+                MoveTowardsTarget(defendPoint);
             }
         }
-        // If there's no defender to target, move towards the base
+        // If there's no enemy to target, move towards the defend point
         else
         {
-            MoveTowardsTarget(Mendelbase);
+            MoveTowardsTarget(defendPoint);
         }
     }
 
-    private void FindClosestDefender()
+    private void FindClosestEnemy()
     {
         float closestDistance = alertRadius;
-        GameObject closestDefender = null;
-        foreach (GameObject defender in DefenderManager.Instance.defenders)
+        GameObject closestEnemy = null;
+        foreach (GameObject enemy in EnemyManager.Instance.enemies)
         {
-            float currentDistance = Vector3.Distance(transform.position, defender.transform.position);
+            float currentDistance = Vector3.Distance(transform.position, enemy.transform.position);
             if (currentDistance < closestDistance)
             {
                 closestDistance = currentDistance;
-                closestDefender = defender;
+                closestEnemy = enemy;
             }
         }
-        targetDefender = closestDefender;
+        targetEnemy = closestEnemy;
     }
 
     private void Attack(GameObject target)
@@ -103,7 +104,7 @@ public class EnemyController : MonoBehaviour
         isAttacking = false;
     }
 
-    private void MoveTowardsTarget(GameObject target) 
+    private void MoveTowardsTarget(GameObject target)
     {
         if (agent && target)
         {
@@ -122,11 +123,11 @@ public class EnemyController : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyManager.Instance.RegisterEnemy(gameObject);
+        DefenderManager.Instance.RegisterDefender(gameObject);
     }
 
     private void OnDestroy()
     {
-        EnemyManager.Instance.UnregisterEnemy(gameObject);
+        DefenderManager.Instance.UnregisterDefender(gameObject);
     }
 }
