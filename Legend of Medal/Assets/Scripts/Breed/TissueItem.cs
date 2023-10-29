@@ -28,7 +28,7 @@ public class TissueItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(dropZone, Input.mousePosition, eventData.pressEventCamera))
             {
-                // 鼠标释放在这个dropZone上
+                // 鼠标位置
                 this.transform.SetParent(dropZone);
                 this.transform.position = dropZone.position;
                 isInDropZone = true;
