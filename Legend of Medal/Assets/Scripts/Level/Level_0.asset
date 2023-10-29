@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   levelName: Level_0
-  maxDefenders: 5
-  extraDefenderAfterEachWave: 0
+  maxDefenders: 1
+  extraDefenderAfterEachWave: 1
   waves:
   - enemies:
     - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
@@ -22,18 +22,38 @@ MonoBehaviour:
       count: 1
   - enemies:
     - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
-      spawnLocation: 1
-      count: 1
-    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
       spawnLocation: 0
+      count: 1
+    - enemyPrefab: {fileID: 4117279205531356690, guid: 42c2fb15637a49c4e81d8ab5d3c26d8f, type: 3}
+      spawnLocation: 1
       count: 1
   - enemies:
     - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
       spawnLocation: 0
       count: 1
-    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+    - enemyPrefab: {fileID: 4117279205531356690, guid: 42c2fb15637a49c4e81d8ab5d3c26d8f, type: 3}
       spawnLocation: 1
       count: 1
-    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+    - enemyPrefab: {fileID: 6060180828890287578, guid: 26a81a459dc988347a2d0c655b060660, type: 3}
       spawnLocation: 2
       count: 1
+  - enemies:
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 0
+      count: 2
+    - enemyPrefab: {fileID: 4117279205531356690, guid: 42c2fb15637a49c4e81d8ab5d3c26d8f, type: 3}
+      spawnLocation: 1
+      count: 2
+    - enemyPrefab: {fileID: 6060180828890287578, guid: 26a81a459dc988347a2d0c655b060660, type: 3}
+      spawnLocation: 2
+      count: 2
+  - enemies:
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 0
+      count: 3
+    - enemyPrefab: {fileID: 4117279205531356690, guid: 42c2fb15637a49c4e81d8ab5d3c26d8f, type: 3}
+      spawnLocation: 1
+      count: 3
+    - enemyPrefab: {fileID: 6060180828890287578, guid: 26a81a459dc988347a2d0c655b060660, type: 3}
+      spawnLocation: 2
+      count: 3

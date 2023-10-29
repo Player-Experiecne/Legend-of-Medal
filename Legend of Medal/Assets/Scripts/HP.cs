@@ -6,7 +6,7 @@ public class HP : MonoBehaviour
 
     public float maxHealth = 100;
     private float currentHealth;
-    public Scrollbar healthBar;
+    public Image healthBarFill;
     void Start()
     {
         currentHealth = maxHealth;
@@ -28,6 +28,6 @@ public class HP : MonoBehaviour
 
     void UpdateHealthBar()
     {
-        healthBar.size = (float)currentHealth / maxHealth;
+        healthBarFill.fillAmount = currentHealth / maxHealth;
     }
 }

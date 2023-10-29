@@ -19,10 +19,10 @@ public class DefenderController : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-
-        // Set the default defend point to the base or some specific location.
-        defendPoint = gameObject;  // You might want to change the tag.
-        agent.destination = defendPoint.transform.position;
+        // Remember the current location to be the defendPoint
+        defendPoint = new GameObject("_DefendPoint");
+        defendPoint.transform.position = gameObject.transform.position;
+        MoveTowardsTarget(defendPoint);
     }
 
     void Update()
