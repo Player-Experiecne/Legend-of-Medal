@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8151100473f4b7547aeb4ea871938bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertRadius: 10
+  alertRadius: 20
   attackPower: 60
   attackRange: 5
   attackSpeed: 10

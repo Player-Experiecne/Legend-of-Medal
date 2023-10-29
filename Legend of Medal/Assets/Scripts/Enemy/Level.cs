@@ -5,6 +5,8 @@ using UnityEngine;
 public class Level : ScriptableObject
 {
     [SerializeField] private string levelName;
+    [SerializeField] public int maxDefenders;
+    [SerializeField] public int extraDefenderAfterEachWave;
     [SerializeField] private List<Wave> waves;
 
     public string LevelName => levelName;
@@ -20,6 +22,7 @@ public class Level : ScriptableObject
     public class EnemySpawnInfo
     {
         public GameObject enemyPrefab;
+        public int spawnLocation;
         public int count;
     }
 }

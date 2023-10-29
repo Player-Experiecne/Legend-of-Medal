@@ -217,7 +217,6 @@ GameObject:
   - component: {fileID: 6060180828890287581}
   - component: {fileID: 6060180828890287580}
   - component: {fileID: 6060180828890287579}
-  - component: {fileID: 6060180828890287569}
   - component: {fileID: 5500139518151672771}
   - component: {fileID: 8093411518937923740}
   m_Layer: 2
@@ -341,23 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fe7397622ae384aa13970b1bf24b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertRadius: 10
+  alertRadius: 20
   attackPower: 100
   attackRange: 5
   attackSpeed: 0.75
---- !u!135 &6060180828890287569
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6060180828890287578}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5500139518151672771
 MonoBehaviour:
   m_ObjectHideFlags: 0

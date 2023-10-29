@@ -10,7 +10,13 @@ public class GameManager : MonoBehaviour
     public Transform[] spawnPoints;
     public List<Dictionary<string, float>> monsterData;
 
+    public float timeBetweenEnemies = 1f;
+    public float timeBetweenWaves = 2f;
+    public float timeBetweenLevels = 30f;
+
     private int currentLevelIndex = 0;
+
+    private BuildManager buildManager;
 
     private DataService dataService;
 
@@ -70,6 +76,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // Locate BuildManager
+        buildManager = FindObjectOfType<BuildManager>();
+        
         // 创建 DataService 实例
         dataService = new DataService("PlayerSaves.db");
 
@@ -98,7 +107,7 @@ public class GameManager : MonoBehaviour
         monsterData = ConvertData(rawData);
 
         //PrintDictList(rawData);
-
+        LoadNextLevel();
     }
 
 
@@ -108,6 +117,9 @@ public class GameManager : MonoBehaviour
         {
             Level currentLevel = gameLevels.Levels[currentLevelIndex];
             Debug.Log("Starting Level: " + currentLevel.LevelName);
+            buildManager.maxDefenders = currentLevel.maxDefenders;
+            buildManager.extraDefendersPerWave = currentLevel.extraDefenderAfterEachWave;
+
             StartCoroutine(SpawnWaves(currentLevel.Waves));
         }
         else
@@ -123,6 +135,8 @@ public class GameManager : MonoBehaviour
             yield return StartCoroutine(SpawnEnemies(wave.enemies));
         }
 
+        yield return new WaitForSeconds(timeBetweenLevels);
+        buildManager.OnLevelCompleted();
         currentLevelIndex++;
         LoadNextLevel();
     }
@@ -133,13 +147,14 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < enemyInfo.count; i++)
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                Transform spawnPoint = spawnPoints[enemyInfo.spawnLocation];
                 Instantiate(enemyInfo.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(timeBetweenEnemies);
             }
         }
 
-        yield return new WaitForSeconds(2f);
+        buildManager.OnWaveCompleted();
+        yield return new WaitForSeconds(timeBetweenWaves);
     }
 
     public List<Dictionary<string, float>> ConvertData(List<Dictionary<string, string>> originalData)

@@ -13,21 +13,27 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   levelName: Level_0
+  maxDefenders: 5
+  extraDefenderAfterEachWave: 0
   waves:
   - enemies:
-    - enemyPrefab: {fileID: 5177868932000476661, guid: 6160cf137385e794dbb16c3e1d254290, type: 3}
-      count: 10
-    - enemyPrefab: {fileID: 5177868932000476661, guid: 6160cf137385e794dbb16c3e1d254290, type: 3}
-      count: 10
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 0
+      count: 1
   - enemies:
-    - enemyPrefab: {fileID: 5177868932000476661, guid: 6160cf137385e794dbb16c3e1d254290, type: 3}
-      count: 10
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 1
+      count: 1
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 0
+      count: 1
   - enemies:
-    - enemyPrefab: {fileID: 5177868932000476661, guid: 6160cf137385e794dbb16c3e1d254290, type: 3}
-      count: 10
-  - enemies:
-    - enemyPrefab: {fileID: 5177868932000476661, guid: 6160cf137385e794dbb16c3e1d254290, type: 3}
-      count: 10
-  - enemies:
-    - enemyPrefab: {fileID: 5177868932000476661, guid: 6160cf137385e794dbb16c3e1d254290, type: 3}
-      count: 10
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 0
+      count: 1
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 1
+      count: 1
+    - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
+      spawnLocation: 2
+      count: 1

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HPbarBillboard : MonoBehaviour
+public class HPBarFixedDirection : MonoBehaviour
 {
     private Vector3 offset;         // The local offset from the parent (enemy)
     private Transform parentTransform;  // Reference to the parent (enemy) transform

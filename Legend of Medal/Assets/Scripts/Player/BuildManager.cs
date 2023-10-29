@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    public GameObject turretPrefab;
+    public GameObject defenderPrefab;
+    public int maxDefenders = 5; // Maximum number of defenders allowed at the start
+    private int currentDefenders = 0; // Current number of defenders placed
+
+    // Extra defenders added after each wave
+    public int extraDefendersPerWave = 2;
 
     void Update()
     {
@@ -14,13 +19,35 @@ public class BuildManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                PlaceTurret(hit.point);
+                PlaceDefender(hit.point);
             }
         }
     }
 
-    void PlaceTurret(Vector3 position)
+    void PlaceDefender(Vector3 position)
     {
-        Instantiate(turretPrefab, position, Quaternion.identity);
+        // Check if the player can still place defenders
+        if (currentDefenders < maxDefenders)
+        {
+            Instantiate(defenderPrefab, position, Quaternion.identity);
+            currentDefenders++; // Increase the current count of defenders
+        }
+        else
+        {
+            Debug.Log("Defender limit reached!");
+        }
+    }
+
+    // Call this method when a wave is completed
+    public void OnWaveCompleted()
+    {
+        maxDefenders += extraDefendersPerWave;
+        Debug.Log($"Extra defenders added! New limit: {maxDefenders}");
+    }
+
+    public void OnLevelCompleted()
+    {
+        currentDefenders = 0;
+        Debug.Log($"CurrentDefenders is set to 0");
     }
 }
