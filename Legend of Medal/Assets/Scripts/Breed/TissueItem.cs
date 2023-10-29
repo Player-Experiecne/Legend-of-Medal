@@ -1,46 +1,48 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class TissueItem : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
+public class TissueItem : MonoBehaviour, IPointerClickHandler
 {
     public string genotype;
-
-    private Vector3 originalPosition;
-
     public BreedMachine breedMachine;
+    public Image tissueImage;
+    public RectTransform rectTransform;
 
-
-    public void OnBeginDrag(PointerEventData eventData)
+    private void Awake()
     {
-        originalPosition = transform.position;
+        rectTransform = GetComponent<RectTransform>();
     }
 
-    public void OnDrag(PointerEventData eventData)
+    private Color normalColor = Color.white; // 正常颜色
+    private Color selectedColor = Color.yellow; // 选中时的颜色
+
+    private Image image; // Reference to the Image component
+
+    private void Start()
     {
-        transform.position = eventData.position;
+        image = GetComponent<Image>();
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        bool isInDropZone = false;
+        breedMachine.SelectTissueForBreeding(this);
+        Highlight();
+    }
 
-        foreach (RectTransform dropZone in breedMachine.dropZones)
+    public void Highlight()
+    {
+        if (image != null)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(dropZone, Input.mousePosition, eventData.pressEventCamera))
-            {
-                // 鼠标位置
-                this.transform.SetParent(dropZone);
-                this.transform.position = dropZone.position;
-                isInDropZone = true;
-                break;
-            }
-        }
-
-        if (!isInDropZone)
-        {
-            transform.position = originalPosition;
+            image.color = selectedColor;
         }
     }
 
-
+    public void ResetHighlight()
+    {
+        if (image != null)
+        {
+            image.color = normalColor;
+        }
+    }
 }
