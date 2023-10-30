@@ -5,14 +5,11 @@ using UnityEngine;
 public class Level : ScriptableObject
 {
     [SerializeField] private string levelName;
-    [SerializeField] public int maxDefenders;
-    [SerializeField] public int extraDefenderAfterEachWave;
+    /*[SerializeField] public int maxDefenders;
+    [SerializeField] public int extraDefenderAfterEachWave;*/
     [SerializeField] private List<Wave> waves;
 
-    public enum GeneTypeA
-    {
-        Null, ADom, AHet, ARec
-    }
+    
 
     public string LevelName => levelName;
     public List<Wave> Waves => waves;  
@@ -29,6 +26,6 @@ public class Level : ScriptableObject
         public GameObject enemyPrefab;
         public int spawnLocation;
         public int count;
-        public GeneTypeA geneTypeA = GeneTypeA.Null;
+        public GeneTypeAInfoSO.GeneTypeA geneTypeA = GeneTypeAInfoSO.GeneTypeA.Null;
     }
 }

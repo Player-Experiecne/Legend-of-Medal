@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
     public float timeBetweenWaves = 2f;
     public float timeBetweenLevels = 30f;
 
-    [SerializeField]
-    private GeneTypeAInfoSO geneTypeAInfo;
+    private AddBehaviorsToTarget addBehaviorsToTarget;
 
     private int currentLevelIndex = 0;
 
@@ -109,6 +108,8 @@ public class GameManager : MonoBehaviour
         //把string Dictionary解析成<int, float>
         monsterData = ConvertData(rawData);
 
+        addBehaviorsToTarget = GetComponent<AddBehaviorsToTarget>();
+
         //PrintDictList(rawData);
         LoadNextLevel();
     }
@@ -120,8 +121,6 @@ public class GameManager : MonoBehaviour
         {
             Level currentLevel = gameLevels.Levels[currentLevelIndex];
             Debug.Log("Starting Level: " + currentLevel.LevelName);
-            buildManager.maxDefenders = currentLevel.maxDefenders;
-            buildManager.extraDefendersPerWave = currentLevel.extraDefenderAfterEachWave;
 
             StartCoroutine(SpawnWaves(currentLevel.Waves));
         }
@@ -139,7 +138,6 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(timeBetweenLevels);
-        buildManager.OnLevelCompleted();
         currentLevelIndex++;
         LoadNextLevel();
     }
@@ -154,12 +152,11 @@ public class GameManager : MonoBehaviour
                 GameObject spawnedEnemy = Instantiate(enemyInfo.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
                 //Add gene behavior script to the spawned enemy
-                AddGeneABehaviors(spawnedEnemy, enemyInfo.geneTypeA);
+                addBehaviorsToTarget.AddGeneABehaviors(spawnedEnemy, enemyInfo.geneTypeA, false);
                 yield return new WaitForSeconds(timeBetweenEnemies);
             }
         }
 
-        buildManager.OnWaveCompleted();
         yield return new WaitForSeconds(timeBetweenWaves);
     }
 
@@ -190,39 +187,7 @@ public class GameManager : MonoBehaviour
         return convertedData;
     }
 
-    private void AddGeneABehaviors(GameObject spawnedEnemy, Level.GeneTypeA geneType)
-    {
-        float randomValue = Random.Range(0f, 1f); // Generate a random float between 0 and 1
-        float occurrencePossibility = 0; // Default to 0
-
-        switch (geneType)
-        {
-            case Level.GeneTypeA.ADom:
-                occurrencePossibility = geneTypeAInfo.ADom.occurrencePossibility;
-                if (randomValue <= occurrencePossibility)
-                {
-                    spawnedEnemy.AddComponent<GeneADomBehaviors>();
-                }
-                break;
-            case Level.GeneTypeA.AHet:
-                occurrencePossibility = geneTypeAInfo.AHet.occurrencePossibility;
-                if (randomValue <= occurrencePossibility)
-                {
-                    spawnedEnemy.AddComponent<GeneAHetBehaviors>();
-                }
-                break;
-            case Level.GeneTypeA.ARec:
-                occurrencePossibility = geneTypeAInfo.ARec.occurrencePossibility;
-                if (randomValue <= occurrencePossibility)
-                {
-                    spawnedEnemy.AddComponent<GeneARecBehaviors>();
-                }
-                break;
-            default:
-                // No gene A behavior attached for 'None'
-                break;
-        }
-    }
+    
 
 
 }

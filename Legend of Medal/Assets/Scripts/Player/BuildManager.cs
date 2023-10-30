@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildManager : MonoBehaviour
 {
-    public GameObject defenderPrefab;
+    public ActionBackpack actionBackpack;
+    private Defender activeDefender = null;
+    private AddBehaviorsToTarget add;
 
-    public int maxDefenders = 5; // Maximum number of defenders allowed at the start
-    private int currentDefenders = 0; // Current number of defenders placed
-
-    // Extra defenders added after each wave
-    public int extraDefendersPerWave = 2;
-
-    public TextMeshProUGUI defenderCountText; // Reference to the TextMeshPro component
+    private void Start()
+    {
+        add = GetComponent<AddBehaviorsToTarget>();
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -30,37 +30,26 @@ public class BuildManager : MonoBehaviour
 
     void PlaceDefender(Vector3 position)
     {
-        // Check if the player can still place defenders
-        if (currentDefenders < maxDefenders)
+        //Get active defender from action backpack
+        activeDefender = actionBackpack.activeDefender;
+        // Check if there's an active defender to place
+        if (activeDefender == null)
         {
-            Instantiate(defenderPrefab, position, Quaternion.identity);
-            currentDefenders++; // Increase the current count of defenders
-            UpdateDefenderText(); // Update the TMP text
+            Debug.Log("No defender selected");
+        }
+        else if (activeDefender.defenderPrefab == null)
+        {
+            Debug.Log("Defender's prefab is not set!");
         }
         else
         {
-            Debug.Log("Defender limit reached!");
+            // Instantiate using the prefab from the active defender
+            GameObject spawnedDefender = Instantiate(activeDefender.defenderPrefab, position, Quaternion.identity);
+            add.AddGeneABehaviors(spawnedDefender, activeDefender.geneTypeA, true);
+
+            // Remove the defender from the backpack after placing
+            actionBackpack.RemoveDefenderFromBackpack(activeDefender);
         }
     }
 
-    // Call this method when a wave is completed
-    public void OnWaveCompleted()
-    {
-        maxDefenders += extraDefendersPerWave;
-        Debug.Log($"Extra defenders added! New limit: {maxDefenders}");
-        UpdateDefenderText(); // Update the TMP text
-    }
-
-    public void OnLevelCompleted()
-    {
-        currentDefenders = 0;
-        Debug.Log($"CurrentDefenders is set to 0");
-        UpdateDefenderText(); // Update the TMP text
-    }
-
-    void UpdateDefenderText()
-    {
-        int defendersLeft = maxDefenders - currentDefenders;
-        defenderCountText.text = $"Max Defenders: {maxDefenders}\nDefenders Left: {defendersLeft}";
-    }
 }
