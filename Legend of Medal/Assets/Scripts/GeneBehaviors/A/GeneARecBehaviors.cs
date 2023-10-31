@@ -57,7 +57,7 @@ public class GeneARecBehaviors : MonoBehaviour
         }
         else if (getInfo.aiType == AIType.Defender)
         {
-            target = GameObject.FindGameObjectWithTag("Base");
+            FindClosestEnemy();
         }
         if(target != null) 
         {
