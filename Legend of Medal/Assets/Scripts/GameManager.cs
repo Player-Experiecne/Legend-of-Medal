@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
             {
                 Transform spawnPoint = spawnPoints[enemyInfo.spawnLocation];
                 GameObject spawnedEnemy = Instantiate(enemyInfo.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
+                spawnedEnemy.tag = "Enemy";
                 //Add gene behavior script to the spawned enemy
                 addBehaviorsToTarget.AddGeneABehaviors(spawnedEnemy, enemyInfo.geneTypeA, false);
                 yield return new WaitForSeconds(timeBetweenEnemies);

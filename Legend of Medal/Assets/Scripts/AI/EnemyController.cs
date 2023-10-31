@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     public float alertRadius = 10f;
 
     private GameObject Mendelbase;
-    private GameObject targetDefender;
+    public GameObject targetDefender;
 
     public float attackPower = 1f;
     public float attackRange = 5f;

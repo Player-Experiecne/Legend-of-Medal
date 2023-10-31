@@ -9,7 +9,7 @@ public class DefenderController : MonoBehaviour
     public float alertRadius = 10f;
 
     private GameObject defendPoint; // The location the defender should defend when not engaging enemies.
-    private GameObject targetEnemy;
+    public GameObject targetEnemy;
 
     public float attackPower = 1f;
     public float attackRange = 5f;

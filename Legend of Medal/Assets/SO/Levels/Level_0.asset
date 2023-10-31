@@ -13,14 +13,12 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   levelName: Level_0
-  maxDefenders: 1
-  extraDefenderAfterEachWave: 1
   waves:
   - enemies:
     - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
       spawnLocation: 0
       count: 1
-      geneTypeA: 0
+      geneTypeA: 1
   - enemies:
     - enemyPrefab: {fileID: 2720892501919324486, guid: 023d495bf51dff54fa17989d33b5cd44, type: 3}
       spawnLocation: 0
